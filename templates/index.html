@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsFlow - Your Global News Aggregator</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>NewsFlow</h1>
+                <p class="tagline">Global News at Your Fingertips</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Search Section -->
+        <section class="search-section">
+            <form id="searchForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="keyword">Search Keyword *</label>
+                        <input type="text" id="keyword" placeholder="e.g., technology, sports, politics..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="language">Language</label>
+                        <select id="language">
+                            <option value="en">English</option>
+                            <option value="ar">Arabic</option>
+                            <option value="de">German</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="he">Hebrew</option>
+                            <option value="it">Italian</option>
+                            <option value="nl">Dutch</option>
+                            <option value="no">Norwegian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="sv">Swedish</option>
+                            <option value="zh">Chinese</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option value="">All Categories</option>
+                            <option value="business">Business</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="general">General</option>
+                            <option value="health">Health</option>
+                            <option value="science">Science</option>
+                            <option value="sports">Sports</option>
+                            <option value="technology">Technology</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country">
+                            <option value="">All Countries</option>
+                            <option value="us">United States</option>
+                            <option value="gb">United Kingdom</option>
+                            <option value="ca">Canada</option>
+                            <option value="au">Australia</option>
+                            <option value="in">India</option>
+                            <option value="de">Germany</option>
+                            <option value="fr">France</option>
+                            <option value="it">Italy</option>
+                            <option value="jp">Japan</option>
+                            <option value="cn">China</option>
+                            <option value="br">Brazil</option>
+                            <option value="mx">Mexico</option>
+                            <option value="ae">United Arab Emirates</option>
+                            <option value="ar">Argentina</option>
+                            <option value="at">Austria</option>
+                            <option value="be">Belgium</option>
+                            <option value="bg">Bulgaria</option>
+                            <option value="ch">Switzerland</option>
+                            <option value="co">Colombia</option>
+                            <option value="cu">Cuba</option>
+                            <option value="cz">Czech Republic</option>
+                            <option value="eg">Egypt</option>
+                            <option value="gr">Greece</option>
+                            <option value="hk">Hong Kong</option>
+                            <option value="hu">Hungary</option>
+                            <option value="id">Indonesia</option>
+                            <option value="ie">Ireland</option>
+                            <option value="il">Israel</option>
+                            <option value="kr">South Korea</option>
+                            <option value="lt">Lithuania</option>
+                            <option value="lv">Latvia</option>
+                            <option value="ma">Morocco</option>
+                            <option value="my">Malaysia</option>
+                            <option value="ng">Nigeria</option>
+                            <option value="nl">Netherlands</option>
+                            <option value="no">Norway</option>
+                            <option value="nz">New Zealand</option>
+                            <option value="ph">Philippines</option>
+                            <option value="pl">Poland</option>
+                            <option value="pt">Portugal</option>
+                            <option value="ro">Romania</option>
+                            <option value="rs">Serbia</option>
+                            <option value="ru">Russian Federation</option>
+                            <option value="sa">Saudi Arabia</option>
+                            <option value="se">Sweden</option>
+                            <option value="sg">Singapore</option>
+                            <option value="si">Slovenia</option>
+                            <option value="sk">Slovak Republic</option>
+                            <option value="th">Thailand</option>
+                            <option value="tr">Turkey</option>
+                            <option value="tw">Taiwan</option>
+                            <option value="ua">Ukraine</option>
+                            <option value="ve">Venezuela</option>
+                            <option value="za">South Africa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pagesize">Results (1-100)</label>
+                        <input type="number" id="pagesize" min="1" max="100" value="20" placeholder="20">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="searchBtn">
+                    <span>Search News</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Fetching the latest news...</p>
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults">
+            <div class="no-results-icon">📰</div>
+            <h2>No Articles Found</h2>
+            <p>Try adjusting your search criteria or keywords.</p>
+        </div>
+
+        <!-- Results Section -->
+        <section class="results" id="results">
+            <div class="results-header">
+                <div class="results-count">
+                    Found <span id="articleCount">0</span> articles
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">Grid View</button>
+                    <button class="view-btn" data-view="list">List View</button>
+                </div>
+            </div>
+
+            <div class="articles-grid" id="articlesGrid"></div>
+            <div class="articles-list" id="articlesList"></div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalCloseBtn">×</button>
+            <!-- Content will be injected here -->
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="../static/js/app.js"></script>
+</body>
+
+</html>
